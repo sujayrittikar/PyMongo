@@ -13,15 +13,15 @@ ASSOC_PROF_NAMES = (
     "Dr. Pankaj Tripathi"
 )
 UNIVERSITY_NAME = "The University of Doing"
-PROF_PAY = "$125,000"
-ASSOC_PROF_PAY = "$80,000"
+PROF_PAY = 125000
+ASSOC_PROF_PAY = 80000
 DEPARTMENT = "Computer Science"
 
-mongo_conn = get_mongo_conn()
+MONGO_CLIENT = get_mongo_conn()
 
 
 def insert_test_doc() -> None:
-    test_db = mongo_conn.test
+    test_db = MONGO_CLIENT.test
     collection = test_db.test
     test_document = {
         "_id": "A1",
@@ -39,18 +39,20 @@ def generate_prod_docs() -> list:
     for prof in PROF_NAMES:
         prof_dict = {
             "emp_name": prof,
+            "position": "Professor",
             "department": DEPARTMENT,
             "university": UNIVERSITY_NAME,
-            "pay": PROF_PAY
+            "pay_in_usd": PROF_PAY
         }
         uni_emp_dicts_list.append(prof_dict)
 
     for assoc_prof in ASSOC_PROF_NAMES:
         assoc_prof_dict = {
             "emp_name": assoc_prof,
+            "position": "Associate Professor",
             "department": DEPARTMENT,
             "university": UNIVERSITY_NAME,
-            "pay": ASSOC_PROF_PAY
+            "pay_in_usd": ASSOC_PROF_PAY
         }
         uni_emp_dicts_list.append(assoc_prof_dict)
 
@@ -59,7 +61,7 @@ def generate_prod_docs() -> list:
 
 def insert_prod_docs():
     emp_docs_list = generate_prod_docs()
-    production = mongo_conn.production
+    production = MONGO_CLIENT.production
     employees_collection = production.employees_collection
     employees_collection.insert_many(emp_docs_list)
 
