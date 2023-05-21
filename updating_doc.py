@@ -1,10 +1,7 @@
 import pprint
 from bson.objectid import ObjectId
-from connection import get_mongo_conn
+from . import *
 
-MONGO_CLIENT = get_mongo_conn()
-PRODUCTION = MONGO_CLIENT.production
-EMPLOYEES_COLLECTION = PRODUCTION.employees_collection
 pprinter = pprint.PrettyPrinter()
 
 

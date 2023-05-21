@@ -1,4 +1,4 @@
-from connection import get_mongo_conn
+from . import *
 
 PROF_NAMES = (
     "Dr. Santosh Nakimara",
@@ -17,19 +17,15 @@ PROF_PAY = 125000
 ASSOC_PROF_PAY = 80000
 DEPARTMENT = "Computer Science"
 
-MONGO_CLIENT = get_mongo_conn()
-
 
 def insert_test_doc() -> None:
-    test_db = MONGO_CLIENT.test
-    collection = test_db.test
     test_document = {
         "_id": "A1",
         "place": "Mumbai",
         "type": "Test"
     }
 
-    inserted_id = collection.insert_one(test_document).inserted_id
+    inserted_id = TEST_COLLECTION.insert_one(test_document).inserted_id
     print(inserted_id)
 
 
@@ -61,9 +57,7 @@ def generate_prod_docs() -> list:
 
 def insert_prod_docs():
     emp_docs_list = generate_prod_docs()
-    production = MONGO_CLIENT.production
-    employees_collection = production.employees_collection
-    employees_collection.insert_many(emp_docs_list)
+    EMPLOYEES_COLLECTION.insert_many(emp_docs_list)
 
     print(
         f"""
