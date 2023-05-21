@@ -1,4 +1,4 @@
-from . import *
+from __init__ import *
 
 PROF_NAMES = (
     "Dr. Santosh Nakimara",

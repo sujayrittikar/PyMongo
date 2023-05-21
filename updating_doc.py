@@ -1,6 +1,6 @@
 import pprint
 from bson.objectid import ObjectId
-from . import *
+from __init__ import *
 
 pprinter = pprint.PrettyPrinter()
 
